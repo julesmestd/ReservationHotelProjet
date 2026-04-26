@@ -1,4 +1,17 @@
+using Npgsql;
+using ReservationHotelProjet.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddScoped(_ =>
+{
+    var connection = new NpgsqlConnection(connectionString);
+    connection.Open();
+    return connection;
+});
+builder.Services.AddScoped<ChambreService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

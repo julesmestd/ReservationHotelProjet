@@ -1,0 +1,32 @@
+﻿CREATE TABLE Client(
+   id_client SERIAL,
+   nom TEXT NOT NULL,
+   prenom TEXT NOT NULL,
+   email TEXT NOT NULL,
+   passwordHash TEXT NOT NULL,
+   role TEXT NOT NULL,
+   PRIMARY KEY(id_client),
+   UNIQUE(email)
+);
+
+CREATE TABLE Chambre(
+   id_chambre SERIAL,
+   numero INT NOT NULL,
+   type TEXT NOT NULL,
+   description TEXT NOT NULL,
+   prix NUMERIC(10,2) NOT NULL,
+   PRIMARY KEY(id_chambre),
+   UNIQUE(numero)
+);
+
+CREATE TABLE Reservation(
+   id_reservation SERIAL,
+   dateDebut DATE NOT NULL,
+   dateFin DATE NOT NULL,
+   statut TEXT NOT NULL,
+   id_chambre INT NOT NULL,
+   id_client INT NOT NULL,
+   PRIMARY KEY(id_reservation),
+   FOREIGN KEY(id_chambre) REFERENCES Chambre(id_chambre),
+   FOREIGN KEY(id_client) REFERENCES Client(id_client)
+);

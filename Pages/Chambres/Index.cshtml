@@ -1,0 +1,14 @@
+﻿@page
+@model ReservationHotelProjet.Pages.Chambres.IndexModel
+
+
+<h1>Liste des chambres</h1>
+
+@foreach (var chambre in Model.Chambres)
+{
+    <div>
+        <h3>Chambre @chambre.Numero</h3>
+        <p>@chambre.Type - @chambre.Prix€</p>
+        <p>@chambre.Description</p>
+    </div>
+}

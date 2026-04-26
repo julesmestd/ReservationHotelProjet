@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "CD+nnEdLdQY=",
+  "dgSpecHash": "8G76BkV1tb8=",
   "success": true,
   "projectFilePath": "C:\\Users\\hp\\APPINF2\\ReservationHotelProjet\\ReservationHotelProjet.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\hp\\.nuget\\packages\\npgsql\\10.0.2\\npgsql.10.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
