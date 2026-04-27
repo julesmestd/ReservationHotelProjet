@@ -1,0 +1,11 @@
+﻿@page "{id:int}"
+@model ReservationHotelProjet.Pages.Chambres.DetailsModel
+
+<h1>Chambre @Model.Chambre.Numero</h1>
+<p>Type : @Model.Chambre.Type</p>
+<p>Prix : @Model.Chambre.Prix€</p>
+<p>@Model.Chambre.Description</p>
+
+<a asp-page="/Chambres/Index" class="btn btn-secondary">Retour</a>
+
+

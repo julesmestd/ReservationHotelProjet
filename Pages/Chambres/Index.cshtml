@@ -1,14 +1,38 @@
 ﻿@page
 @model ReservationHotelProjet.Pages.Chambres.IndexModel
 
+<h1>Nos chambres</h1>
 
-<h1>Liste des chambres</h1>
+<form method="get">
+    <div class="mb-3">
+        <label>Prix maximum : <span id="prixMaxVal">500</span>€</label>
+        <input type="range" name="PrixMax" min="0" max="500" step="10"
+               value="@(Model.PrixMax ?? 500)"
+               oninput="document.getElementById('prixMaxVal').innerText = this.value" />
+    </div>
+
+    <div class="mb-3">
+        <label>Date d'arrivée</label>
+        <input type="date" name="DateDebut" class="form-control"
+               value="@(Model.DateDebut?.ToString("yyyy-MM-dd"))" />
+    </div>
+
+    <div class="mb-3">
+        <label>Date de départ</label>
+        <input type="date" name="DateFin" class="form-control"
+               value="@(Model.DateFin?.ToString("yyyy-MM-dd"))" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+</form>
+
+<hr />
 
 @foreach (var chambre in Model.Chambres)
 {
-    <div>
-        <h3>Chambre @chambre.Numero</h3>
-        <p>@chambre.Type - @chambre.Prix€</p>
-        <p>@chambre.Description</p>
-    </div>
+    <partial name="_ChambreCard" model="chambre" />
 }
+
+<script>
+    document.getElementById('prixMaxVal').innerText = document.querySelector('[name="PrixMax"]').value;
+</script>

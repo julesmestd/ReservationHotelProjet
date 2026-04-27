@@ -1,0 +1,12 @@
+﻿@model ReservationHotelProjet.Models.Chambre
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>Chambre @Model.Numero</h5>
+        <p>@Model.Type - @Model.Prix€</p>
+        <p>@Model.Description</p>
+        <a asp-page="/Chambres/Details" asp-route-id="@Model.IdChambre" class="btn btn-primary">
+            Voir détails
+        </a>
+    </div>
+</div>
