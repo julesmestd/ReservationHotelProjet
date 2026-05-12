@@ -6,6 +6,9 @@
 <p>Prix : @Model.Chambre.Prix€</p>
 <p>@Model.Chambre.Description</p>
 
+<a asp-page="/Reservations/Create" asp-route-idChambre="@Model.Chambre.IdChambre" class="btn btn-success">
+    Réserver
+</a>
 <a asp-page="/Chambres/Index" class="btn btn-secondary">Retour</a>
 
 

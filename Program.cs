@@ -12,6 +12,7 @@ builder.Services.AddScoped(_ =>
     return connection;
 });
 builder.Services.AddScoped<ChambreService>();
+builder.Services.AddScoped<ReservationService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
