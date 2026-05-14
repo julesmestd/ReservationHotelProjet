@@ -5,6 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
+
 builder.Services.AddScoped(_ =>
 {
     var connection = new NpgsqlConnection(connectionString);
@@ -13,6 +20,7 @@ builder.Services.AddScoped(_ =>
 });
 builder.Services.AddScoped<ChambreService>();
 builder.Services.AddScoped<ReservationService>();
+builder.Services.AddScoped<ClientService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

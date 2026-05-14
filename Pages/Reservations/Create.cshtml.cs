@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationHotelProjet.Models;
 using ReservationHotelProjet.Services;
@@ -46,7 +47,7 @@ public class CreateModel : PageModel
         try
         {
             Reservation.IdChambre = idChambre;
-            Reservation.IdClient = 1; // temporaire
+            Reservation.IdClient = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             Reservation.Statut = "Confirmée";
 
             _reservationService.Create(Reservation);
