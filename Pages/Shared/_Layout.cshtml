@@ -22,6 +22,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-page="/Chambres/Index">Chambres</a>
                         </li>
+                        @if (User.Identity?.IsAuthenticated == true && !User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Reservations/MesReservations">Mes réservations</a>
+                            </li>
+                        }
                     </ul>
 
                     <span>

@@ -1,0 +1,54 @@
+﻿@page
+@model ReservationHotelProjet.Pages.Reservations.MesReservationsModel
+
+<h1>Mes réservations</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Erreur"] != null)
+{
+    <div class="alert alert-danger">@TempData["Erreur"]</div>
+}
+
+@if (!Model.Reservations.Any())
+{
+    <p>Vous n'avez aucune réservation en cours.</p>
+}
+else
+{
+    @foreach (var r in Model.Reservations)
+    {
+        var chambre = Model.Chambres[r.IdChambre];
+        var peutModifier = r.DateDebut > DateTime.Today.AddDays(2);
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Chambre @chambre.Numero - @chambre.Type</h5>
+                <p>Arrivée : @r.DateDebut.ToString("dd/MM/yyyy")</p>
+                <p>Départ : @r.DateFin.ToString("dd/MM/yyyy")</p>
+                <p>Statut : @r.Statut</p>
+
+                @if (peutModifier)
+                {
+                    <a asp-page="/Reservations/Edit" asp-route-id="@r.IdReservation"
+                       class="btn btn-warning">Modifier</a>
+
+                    <form method="post" style="display:inline">
+                        <button type="submit" asp-page-handler="Delete"
+                                asp-route-id="@r.IdReservation"
+                                class="btn btn-danger"
+                                onclick="return confirm('Confirmer l\'annulation ?')">
+                            Annuler
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <small class="text-muted">Modification impossible (moins de 2 jours avant l'arrivée)</small>
+                }
+            </div>
+        </div>
+    }
+}

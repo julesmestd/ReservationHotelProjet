@@ -30,6 +30,11 @@ public class CreateModel : PageModel
 
     public IActionResult OnPost(int idChambre)
     {
+        var idClient = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+        if (_reservationService.ClientDejaReserve(idClient, Reservation.DateDebut, Reservation.DateFin))
+            ModelState.AddModelError("", "Vous avez déjà une réservation sur ces dates");
+        
         if (Reservation.DateDebut < DateTime.Today)
             ModelState.AddModelError("Reservation.DateDebut", "La date d'arrivée doit être dans le futur");
 
@@ -47,7 +52,7 @@ public class CreateModel : PageModel
         try
         {
             Reservation.IdChambre = idChambre;
-            Reservation.IdClient = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            Reservation.IdClient = idClient;
             Reservation.Statut = "Confirmée";
 
             _reservationService.Create(Reservation);
