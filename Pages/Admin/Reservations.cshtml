@@ -1,0 +1,78 @@
+﻿@page
+@model ReservationHotelProjet.Pages.Admin.ReservationsModel
+
+<h1>Gestion des réservations</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<h2>Réservations en cours</h2>
+
+@if (!Model.EnCours.Any())
+{
+    <p>Aucune réservation en cours.</p>
+}
+else
+{
+    @foreach (var r in Model.EnCours)
+    {
+        var chambre = Model.Chambres[r.IdChambre];
+        var client = Model.Clients[r.IdClient];
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Chambre @chambre.Numero - @chambre.Type</h5>
+                <p>Client : @client.Prenom @client.Nom</p>
+                <p>Arrivée : @r.DateDebut.ToString("dd/MM/yyyy")</p>
+                <p>Départ : @r.DateFin.ToString("dd/MM/yyyy")</p>
+                <p>Statut : @r.Statut</p>
+
+                <form method="post">
+                    <button type="submit" asp-page-handler="Delete"
+                            asp-route-id="@r.IdReservation"
+                            class="btn btn-danger"
+                            onclick="return confirm('Supprimer cette réservation ?')">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+}
+
+<hr />
+
+<h2>Réservations terminées</h2>
+
+@if (!Model.Terminees.Any())
+{
+    <p>Aucune réservation terminée.</p>
+}
+else
+{
+    @foreach (var r in Model.Terminees)
+    {
+        var chambre = Model.Chambres[r.IdChambre];
+        var client = Model.Clients[r.IdClient];
+
+        <div class="card mb-3 border-secondary">
+            <div class="card-body text-muted">
+                <h5>Chambre @chambre.Numero - @chambre.Type</h5>
+                <p>Client : @client.Prenom @client.Nom</p>
+                <p>Arrivée : @r.DateDebut.ToString("dd/MM/yyyy")</p>
+                <p>Départ : @r.DateFin.ToString("dd/MM/yyyy")</p>
+
+                <form method="post">
+                    <button type="submit" asp-page-handler="Delete"
+                            asp-route-id="@r.IdReservation"
+                            class="btn btn-danger"
+                            onclick="return confirm('Supprimer cette réservation ?')">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+}
