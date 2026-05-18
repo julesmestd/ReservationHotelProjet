@@ -58,7 +58,6 @@ public class EditModel : PageModel
 
         Reservation.IdReservation = id;
         Reservation.IdClient = idClient;
-        Reservation.Statut = "Confirmée";
 
         _reservationService.Update(Reservation);
 

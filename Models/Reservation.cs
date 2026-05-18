@@ -12,8 +12,6 @@ public class Reservation
     [Required(ErrorMessage = "La date de départ est obligatoire")]
     public DateTime DateFin { get; set; }= DateTime.Today.AddDays(1);
     
-    public string Statut { get; set; } = "";
-    
     public int IdClient { get; set; }
     
     public int IdChambre { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ReservationHotelProjet.Models;
@@ -6,6 +7,7 @@ using ReservationHotelProjet.Services;
 
 namespace ReservationHotelProjet.Pages.Reservations;
 
+[Authorize]
 public class CreateModel : PageModel
 {
     private readonly ReservationService _reservationService;
@@ -53,7 +55,6 @@ public class CreateModel : PageModel
         {
             Reservation.IdChambre = idChambre;
             Reservation.IdClient = idClient;
-            Reservation.Statut = "Confirmée";
 
             _reservationService.Create(Reservation);
 

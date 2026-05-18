@@ -16,12 +16,11 @@ public class ReservationService
     public void Create(Reservation reservation)
     {
         var cmd = _connection.CreateCommand();
-        cmd.CommandText = @"INSERT INTO Reservation (dateDebut, dateFin, statut, id_chambre, id_client)
-                            VALUES (@dateDebut, @dateFin, @statut, @idChambre, @idClient)";
+        cmd.CommandText = @"INSERT INTO Reservation (dateDebut, dateFin, id_chambre, id_client)
+                            VALUES (@dateDebut, @dateFin, @idChambre, @idClient)";
 
         cmd.AddParameter("@dateDebut", reservation.DateDebut);
         cmd.AddParameter("@dateFin", reservation.DateFin);
-        cmd.AddParameter("@statut", reservation.Statut);
         cmd.AddParameter("@idChambre", reservation.IdChambre);
         cmd.AddParameter("@idClient", reservation.IdClient);
 
@@ -34,8 +33,7 @@ public class ReservationService
         cmd.CommandText = @"SELECT COUNT(*) FROM Reservation
                         WHERE id_chambre = @idChambre
                         AND @dateDebut < dateFin
-                        AND @dateFin > dateDebut
-                        AND statut = 'Confirmée'";
+                        AND @dateFin > dateDebut";
 
         cmd.AddParameter("@idChambre", idChambre);
         cmd.AddParameter("@dateDebut", dateDebut);
@@ -66,9 +64,8 @@ public class ReservationService
                 IdReservation = reader.GetInt32(0),
                 DateDebut     = reader.GetDateTime(1),
                 DateFin       = reader.GetDateTime(2),
-                Statut        = reader.GetString(3),
-                IdChambre     = reader.GetInt32(4),
-                IdClient      = reader.GetInt32(5)
+                IdChambre     = reader.GetInt32(3),
+                IdClient      = reader.GetInt32(4)
             });
         }
     
@@ -90,9 +87,8 @@ public class ReservationService
                 IdReservation = reader.GetInt32(0),
                 DateDebut     = reader.GetDateTime(1),
                 DateFin       = reader.GetDateTime(2),
-                Statut        = reader.GetString(3),
-                IdChambre     = reader.GetInt32(4),
-                IdClient      = reader.GetInt32(5)
+                IdChambre     = reader.GetInt32(3),
+                IdClient      = reader.GetInt32(4)
             });
         }
     
@@ -135,9 +131,8 @@ public class ReservationService
                 IdReservation = reader.GetInt32(0),
                 DateDebut     = reader.GetDateTime(1),
                 DateFin       = reader.GetDateTime(2),
-                Statut        = reader.GetString(3),
-                IdChambre     = reader.GetInt32(4),
-                IdClient      = reader.GetInt32(5)
+                IdChambre     = reader.GetInt32(3),
+                IdClient      = reader.GetInt32(4)
             };
         }
     
@@ -150,8 +145,7 @@ public class ReservationService
         cmd.CommandText = @"SELECT COUNT(*) FROM reservation
                         WHERE id_client = @idClient
                         AND @dateDebut < datefin
-                        AND @dateFin > datedebut
-                        AND statut = 'Confirmée'";
+                        AND @dateFin > datedebut";
 
         cmd.AddParameter("@idClient", idClient);
         cmd.AddParameter("@dateDebut", dateDebut);

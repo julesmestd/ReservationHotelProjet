@@ -23,7 +23,6 @@ CREATE TABLE Reservation(
    id_reservation SERIAL,
    dateDebut DATE NOT NULL,
    dateFin DATE NOT NULL,
-   statut TEXT NOT NULL,
    id_chambre INT NOT NULL,
    id_client INT NOT NULL,
    PRIMARY KEY(id_reservation),
