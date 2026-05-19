@@ -21,6 +21,7 @@ builder.Services.AddScoped(_ =>
 builder.Services.AddScoped<ChambreService>();
 builder.Services.AddScoped<ReservationService>();
 builder.Services.AddScoped<ClientService>();
+builder.Services.AddSingleton<EmailService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

@@ -12,16 +12,21 @@ public class CreateModel : PageModel
 {
     private readonly ReservationService _reservationService;
     private readonly ChambreService _chambreService;
+    private readonly EmailService _emailService;
+    private readonly ClientService _clientService;
 
     [BindProperty]
     public Reservation Reservation { get; set; } = new();
 
     public Chambre Chambre { get; set; } = new();
 
-    public CreateModel(ReservationService reservationService, ChambreService chambreService)
+    public CreateModel(ReservationService reservationService, ChambreService chambreService,EmailService emailService,
+    ClientService clientService)
     {
         _reservationService = reservationService;
         _chambreService = chambreService;
+        _emailService = emailService;
+        _clientService = clientService;
     }
 
     public void OnGet(int idChambre)
@@ -57,6 +62,18 @@ public class CreateModel : PageModel
             Reservation.IdClient = idClient;
 
             _reservationService.Create(Reservation);
+            
+            var client = _clientService.GetById(idClient)!;
+            var chambre = _chambreService.GetById(idChambre)!;
+
+            _emailService.EnvoyerConfirmation(
+                client.Email,
+                client.Prenom,
+                chambre.Numero,
+                chambre.Type,
+                Reservation.DateDebut,
+                Reservation.DateFin
+            );
 
             TempData["Message"] = "Réservation confirmée avec succès !";
             return RedirectToPage("/Index");
