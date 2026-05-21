@@ -29,6 +29,8 @@ public class LoginModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        if (!ModelState.IsValid) return Page();
+        
         var client = _clientService.GetByEmail(Email);
 
         if (client is null || !PasswordHelper.VerifyPassword(Password, client.PasswordHash))

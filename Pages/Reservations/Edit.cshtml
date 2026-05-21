@@ -4,18 +4,17 @@
 <h1>Modifier la réservation - Chambre @Model.Chambre.Numero</h1>
 
 <form method="post" asp-route-id="@Model.Reservation.IdReservation">
+    <input type="hidden" asp-for="Reservation.IdChambre" />
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="mb-3">
         <label asp-for="Reservation.DateDebut">Date d'arrivée</label>
-        <input asp-for="Reservation.DateDebut" type="date" class="form-control" />
-        <span asp-validation-for="Reservation.DateDebut" class="text-danger"></span>
+        <input asp-for="Reservation.DateDebut" type="date" class="form-control"/>
     </div>
 
     <div class="mb-3">
         <label asp-for="Reservation.DateFin">Date de départ</label>
-        <input asp-for="Reservation.DateFin" type="date" class="form-control" />
-        <span asp-validation-for="Reservation.DateFin" class="text-danger"></span>
+        <input asp-for="Reservation.DateFin" type="date" class="form-control"/>
     </div>
 
     <button type="submit" class="btn btn-warning">Modifier</button>

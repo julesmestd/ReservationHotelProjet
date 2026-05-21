@@ -62,7 +62,16 @@ public class CreateModel : PageModel
             Reservation.IdClient = idClient;
 
             _reservationService.Create(Reservation);
-            
+        }
+        catch (Exception)
+        {
+            ModelState.AddModelError("", "Impossible de créer la réservation");
+            Chambre = _chambreService.GetById(idChambre)!;
+            return Page();
+        }
+
+        try
+        {
             var client = _clientService.GetById(idClient)!;
             var chambre = _chambreService.GetById(idChambre)!;
 
@@ -74,15 +83,13 @@ public class CreateModel : PageModel
                 Reservation.DateDebut,
                 Reservation.DateFin
             );
-
-            TempData["Message"] = "Réservation confirmée avec succès !";
-            return RedirectToPage("/Index");
         }
         catch (Exception)
         {
-            ModelState.AddModelError("", "Impossible de créer la réservation");
-            Chambre = _chambreService.GetById(idChambre)!;
-            return Page();
+            
         }
+
+        TempData["Message"] = "Réservation confirmée avec succès !";
+        return RedirectToPage("/Index");
     }
 }
